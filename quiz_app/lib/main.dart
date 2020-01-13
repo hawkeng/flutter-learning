@@ -39,6 +39,13 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
+  void restartQuiz() {
+    setState(() {
+      _questionIndex = 0;
+      _answers.clear();
+    });
+  }
+
   double getScore() {
     return _answers.fold(0, (acc, answer) => acc + answer['score']);
   }
@@ -57,6 +64,7 @@ class _MyAppState extends State<MyApp> {
               )
             : Result(
                 score: getScore(),
+                restart: restartQuiz,
               ),
       ),
     );

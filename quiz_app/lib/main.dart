@@ -8,13 +8,13 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  var questionIndex = 0;
+  var _questionIndex = 0;
 
   final questions = ["What's your favorite color?", "What's PI's value?"];
 
   void handlePress() {
     setState(() {
-      questionIndex++;
+      _questionIndex++;
     });
   }
 
@@ -27,7 +27,7 @@ class _MyAppState extends State<MyApp> {
         ),
         body: Column(
           children: <Widget>[
-            Text(questions[questionIndex]),
+            Text(questions[_questionIndex]),
             RaisedButton(
               child: Text("Answer 1"),
               onPressed: handlePress,

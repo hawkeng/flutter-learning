@@ -18,9 +18,9 @@ class Quiz extends StatelessWidget {
     return Column(
       children: <Widget>[
         Question(questionData['text']),
-        ...(questionData['answers'] as List<String>).map((answer) => Answer(
-              text: answer,
-              onPressed: onPressed,
+        ...(questionData['answers'] as List<Map>).map((answer) => Answer(
+              text: answer['text'],
+              onPressed: () => onPressed(answer),
             )),
       ],
     );

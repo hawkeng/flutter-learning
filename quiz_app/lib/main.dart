@@ -11,20 +11,29 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   var _questionIndex = 0;
-
+  var _answers = [];
   static const _questions = [
     {
       'text': 'What\'s your favorite color?',
-      'answers': ['Cyan', 'Navy', 'Turquoise'],
+      'answers': [
+        {'text': 'Cyan', 'score': 10},
+        {'text': 'Navy', 'score': 10},
+        {'text': 'Turquoise', 'score': 5},
+      ],
     },
     {
       'text': 'What\'s PI\'s value?',
-      'answers': ['3.1416', '42', '11'],
+      'answers': [
+        {'text': '3.1416', 'score': 10},
+        {'text': '42', 'score': 20},
+        {'text': '11', 'score': 0},
+      ],
     },
   ];
 
-  void handlePress() {
+  void handlePress(Map selectedAnswer) {
     setState(() {
+      _answers.add(selectedAnswer);
       _questionIndex++;
     });
   }

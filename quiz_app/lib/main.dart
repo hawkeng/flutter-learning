@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import './quiz.dart';
+import './result.dart';
 
 void main() => runApp(MyApp());
 
@@ -38,6 +39,10 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
+  double getScore() {
+    return _answers.fold(0, (acc, answer) => acc + answer['score']);
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -50,8 +55,8 @@ class _MyAppState extends State<MyApp> {
                 questionData: _questions[_questionIndex],
                 onPressed: handlePress,
               )
-            : Center(
-                child: Text("You are done!"),
+            : Result(
+                score: getScore(),
               ),
       ),
     );

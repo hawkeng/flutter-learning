@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import './question.dart';
+import './answer.dart';
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatefulWidget {
@@ -10,7 +13,16 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   var _questionIndex = 0;
 
-  final questions = ["What's your favorite color?", "What's PI's value?"];
+  static const questions = [
+    {
+      'text': 'What\'s your favorite color?',
+      'answers': ['Cyan', 'Navy', 'Turquoise'],
+    },
+    {
+      'text': 'What\'s PI\'s value?',
+      'answers': ['3.1416', '42', '11'],
+    },
+  ];
 
   void handlePress() {
     setState(() {
@@ -23,25 +35,22 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text("My App Bar"),
+          title: Text('My App Bar'),
         ),
-        body: Column(
-          children: <Widget>[
-            Text(questions[_questionIndex]),
-            RaisedButton(
-              child: Text("Answer 1"),
-              onPressed: handlePress,
-            ),
-            RaisedButton(
-              child: Text("Answer 2"),
-              onPressed: handlePress,
-            ),
-            RaisedButton(
-              child: Text("Answer 3"),
-              onPressed: handlePress,
-            )
-          ],
-        ),
+        body: _questionIndex < questions.length
+            ? Column(
+                children: <Widget>[
+                  Question(questions[_questionIndex]['text']),
+                  ...(questions[_questionIndex]['answers'] as List<String>)
+                      .map((answer) => Answer(
+                            text: answer,
+                            onPressed: handlePress,
+                          )),
+                ],
+              )
+            : Center(
+                child: Text("You are done!"),
+              ),
       ),
     );
   }

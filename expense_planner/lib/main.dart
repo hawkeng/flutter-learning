@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import './transaction.dart';
 
@@ -54,6 +55,8 @@ class ExpenseItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final dFormatter = new DateFormat.yMMMd().add_jm();
+
     return Card(
       child: Row(
         children: <Widget>[
@@ -77,7 +80,7 @@ class ExpenseItem extends StatelessWidget {
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
               Text(
-                transaction.date.toLocal().toString(),
+                dFormatter.format(transaction.date.toLocal()),
                 style: TextStyle(color: Colors.grey),
               ),
             ],

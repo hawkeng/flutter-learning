@@ -6,7 +6,6 @@ import './transaction.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(title: 'Expense Planner', home: HomePage());
@@ -61,7 +60,6 @@ class ExpenseItem extends StatelessWidget {
       child: Row(
         children: <Widget>[
           Container(
-            // color: Colors.orange,
             padding: EdgeInsets.all(10),
             margin: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
             decoration: BoxDecoration(

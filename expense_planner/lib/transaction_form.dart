@@ -19,7 +19,8 @@ class TransactionForm extends StatelessWidget {
           ),
           TextField(
             decoration: InputDecoration(labelText: 'Amount'),
-            keyboardType: TextInputType.number,
+            // iOS Fix
+            keyboardType: TextInputType.numberWithOptions(decimal: true),
             controller: amountController,
           ),
           FlatButton(

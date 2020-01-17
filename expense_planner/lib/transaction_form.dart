@@ -32,7 +32,7 @@ class _TransactionFormState extends State<TransactionForm> {
           ),
           FlatButton(
             child: Text('Add Transaction'),
-            textColor: Colors.purple,
+            textColor: Theme.of(context).primaryColor,
             onPressed: () {
               widget.onSave({
                 'title': titleController.text,

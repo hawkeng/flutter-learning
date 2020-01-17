@@ -18,11 +18,17 @@ class TransactionItem extends StatelessWidget {
             padding: EdgeInsets.all(10),
             margin: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
             decoration: BoxDecoration(
-                border: Border.all(color: Colors.purple, width: 2)),
+              border: Border.all(
+                color: Theme.of(context).primaryColor,
+                width: 2,
+              ),
+            ),
             child: Text(
               '\$${transaction.amount.toStringAsFixed(2)}',
-              style:
-                  TextStyle(fontWeight: FontWeight.bold, color: Colors.purple),
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).primaryColor,
+              ),
             ),
           ),
           Column(

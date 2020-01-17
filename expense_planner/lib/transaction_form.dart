@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
 
-class TransactionForm extends StatelessWidget {
+class TransactionForm extends StatefulWidget {
   TransactionForm({Key key, @required this.onSave}) : super(key: key);
 
   final Function onSave;
+
+  @override
+  _TransactionFormState createState() => _TransactionFormState();
+}
+
+class _TransactionFormState extends State<TransactionForm> {
   final titleController = TextEditingController();
+
   final amountController = TextEditingController();
 
   @override
@@ -27,7 +34,7 @@ class TransactionForm extends StatelessWidget {
             child: Text('Add Transaction'),
             textColor: Colors.purple,
             onPressed: () {
-              onSave({
+              widget.onSave({
                 'title': titleController.text,
                 'amount': amountController.text
               });

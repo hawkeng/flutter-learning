@@ -75,7 +75,10 @@ class _HomePageState extends State<HomePage> {
     showModalBottomSheet(
       context: ctx,
       builder: (_) {
-        return TransactionForm(onSave: _addTransaction);
+        return TransactionForm(onSave: (data) {
+          _addTransaction(data);
+          Navigator.of(ctx).pop();
+        });
       },
     );
   }

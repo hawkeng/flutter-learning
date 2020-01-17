@@ -31,6 +31,24 @@ class _HomePageState extends State<HomePage> {
       title: "Marshmellow Socks",
       amount: 29.99,
       date: DateTime.now(),
+    ),
+    Transaction(
+      id: "3",
+      title: "Darth Vader T-shirt",
+      amount: 29.99,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: "4",
+      title: "Luke Skywalker Lightsaber",
+      amount: 29.99,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: "5",
+      title: "Rick and Morty Hoodie",
+      amount: 29.99,
+      date: DateTime.now(),
     )
   ];
 
@@ -54,13 +72,20 @@ class _HomePageState extends State<HomePage> {
         body: Column(
           children: <Widget>[
             Card(child: Text('CHART PLACEHOLDER')),
-            TransactionForm(
-              onSave: addTransaction,
+            Card(
+              child: TransactionForm(
+                onSave: addTransaction,
+              ),
+              elevation: 5,
+              margin: EdgeInsets.only(bottom: 10),
             ),
-            Column(
-              children: _transactions.map((transaction) {
-                return TransactionItem(transaction);
-              }).toList(),
+            Expanded(
+              // height: 300,
+              flex: 1,
+              child: ListView.builder(
+                itemCount: _transactions.length,
+                itemBuilder: (ctx, i) => TransactionItem(_transactions[i]),
+              ),
             )
           ],
         ));

@@ -53,11 +53,19 @@ class _HomePageState extends State<HomePage> {
   ];
 
   void addTransaction(Map<String, String> transactionData) {
+    final String title = transactionData['title'];
+    final String amount = transactionData['amount'];
+
+    if (title.isEmpty || amount.isEmpty) return;
+
+    final double amountNumber = double.parse(amount);
+    if (amountNumber <= 0) return;
+
     setState(() {
       _transactions.add(Transaction(
         id: (_transactions.length + 1).toString(),
-        title: transactionData['title'],
-        amount: double.parse(transactionData['amount']),
+        title: title,
+        amount: amountNumber,
         date: DateTime.now(),
       ));
     });

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
+import './transaction_item.dart';
 import './transaction.dart';
+import './transaction_form.dart';
 
 void main() => runApp(MyApp());
 
@@ -12,8 +13,13 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class HomePage extends StatelessWidget {
-  final List<Transaction> transactions = [
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  List<Transaction> _transactions = [
     Transaction(
       id: "1",
       title: "Pikachu Coffee Mug",
@@ -28,6 +34,17 @@ class HomePage extends StatelessWidget {
     )
   ];
 
+  void addTransaction(Map<String, String> transactionData) {
+    setState(() {
+      _transactions.add(Transaction(
+        id: (_transactions.length + 1).toString(),
+        title: transactionData['title'],
+        amount: double.parse(transactionData['amount']),
+        date: DateTime.now(),
+      ));
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,54 +54,15 @@ class HomePage extends StatelessWidget {
         body: Column(
           children: <Widget>[
             Card(child: Text('CHART PLACEHOLDER')),
+            TransactionForm(
+              onSave: addTransaction,
+            ),
             Column(
-              children: transactions.map((transaction) {
-                return ExpenseItem(transaction);
+              children: _transactions.map((transaction) {
+                return TransactionItem(transaction);
               }).toList(),
             )
           ],
         ));
-  }
-}
-
-class ExpenseItem extends StatelessWidget {
-  const ExpenseItem(this.transaction, {Key key}) : super(key: key);
-
-  final Transaction transaction;
-
-  @override
-  Widget build(BuildContext context) {
-    final dFormatter = new DateFormat.yMMMd().add_jm();
-
-    return Card(
-      child: Row(
-        children: <Widget>[
-          Container(
-            padding: EdgeInsets.all(10),
-            margin: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-            decoration: BoxDecoration(
-                border: Border.all(color: Colors.purple, width: 2)),
-            child: Text(
-              '\$${transaction.amount}',
-              style:
-                  TextStyle(fontWeight: FontWeight.bold, color: Colors.purple),
-            ),
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                transaction.title,
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-              Text(
-                dFormatter.format(transaction.date.toLocal()),
-                style: TextStyle(color: Colors.grey),
-              ),
-            ],
-          )
-        ],
-      ),
-    );
   }
 }

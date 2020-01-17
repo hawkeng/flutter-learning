@@ -52,7 +52,7 @@ class _HomePageState extends State<HomePage> {
     )
   ];
 
-  void addTransaction(Map<String, String> transactionData) {
+  void _addTransaction(Map<String, String> transactionData) {
     final String title = transactionData['title'];
     final String amount = transactionData['amount'];
 
@@ -71,31 +71,39 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  void _openTransactionForm(BuildContext ctx) {
+    showModalBottomSheet(
+      context: ctx,
+      builder: (_) {
+        return TransactionForm(onSave: _addTransaction);
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Expense Planner'),
-        ),
-        body: Column(
-          children: <Widget>[
-            Card(child: Text('CHART PLACEHOLDER')),
-            Card(
-              child: TransactionForm(
-                onSave: addTransaction,
-              ),
-              elevation: 5,
-              margin: EdgeInsets.only(bottom: 10),
+      appBar: AppBar(
+        title: Text('Expense Planner'),
+      ),
+      body: Column(
+        children: <Widget>[
+          Card(child: Text('CHART PLACEHOLDER')),
+          Expanded(
+            flex: 1,
+            child: ListView.builder(
+              itemCount: _transactions.length,
+              itemBuilder: (ctx, i) => TransactionItem(_transactions[i]),
             ),
-            Expanded(
-              // height: 300,
-              flex: 1,
-              child: ListView.builder(
-                itemCount: _transactions.length,
-                itemBuilder: (ctx, i) => TransactionItem(_transactions[i]),
-              ),
-            )
-          ],
-        ));
+          )
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: IconButton(
+          icon: Icon(Icons.add),
+          onPressed: () => _openTransactionForm(context),
+        ),
+      ),
+    );
   }
 }
